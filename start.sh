@@ -4,7 +4,7 @@
 
 echo "开始初始化"
 
-apt update -y && apt install curl wget git -y
+yum install -y git curl wget 2> /dev/null || apt update -y && apt install -y git curl wget
 
 curl -fsSL https://get.docker.com | bash -s docker 
 
@@ -41,3 +41,10 @@ cat > config.json <<EOF
 EOF
 
 docker-compose up -d --force-recreate
+
+echo "BBR安装"
+cd /tmp
+wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh
+chmod +x bbr.sh
+
+./bbr.sh
