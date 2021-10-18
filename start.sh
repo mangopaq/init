@@ -14,31 +14,16 @@ curl -L https://get.daocloud.io/docker/compose/releases/download/1.29.2/docker-c
 chmod +x /usr/local/bin/docker-compose
 docker-compose -v
 
-echo "poseidon"
+echo "XrayR"
 
-git clone https://github.com/ColetteContreras/v2ray-poseidon.git
+git clone https://github.com/XrayR-project/XrayR-release.git
 
-cd v2ray-poseidon/docker/v2board/tcp/
+cd XrayR-release
 
-sed -i -e "s#服务端口#$1#g" docker-compose.yml
-rm -rf config.json
-cat > config.json <<EOF
-{
-  "poseidon": {
-    "panel": "v2board",
-    "nodeId": $2,
-    "checkRate": 60,
-    "webapi": "$3",
-    "token": "$4",
-    "speedLimit": 0,
-    "user": {
-      "maxOnlineIPCount": 0,
-      "speedLimit": 0 
-    },
-    "acceptProxyProtocol": false
-  }
-}
-EOF
+sed -i -e "s#SSpanel#$1#g" config/config.yml
+sed -i -e "s#http://127.0.0.1:667#$2#g" config/config.yml
+sed -i -e "s#123#$3#g" config/config.yml
+sed -i -e "s#41#$4#g" config/config.yml
 
 docker-compose up -d --force-recreate
 
